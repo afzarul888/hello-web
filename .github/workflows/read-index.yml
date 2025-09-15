@@ -1,5 +1,4 @@
-
-name: Read index.html Content
+name: Read index.html Content (Windows)
 
 on:
   push:
@@ -7,14 +6,20 @@ on:
       - main
 
 jobs:
-  read-file-job:
-    runs-on: ubuntu-latest
+  read-file-windows:
+    runs-on: windows-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Display index.html content
         run: |
-          echo "---- index.html content ----"
-          cat index.html
-          echo "---------------------------"
+          if (Test-Path "index.html") {
+            Write-Host "==== index.html content start ===="
+            Get-Content index.html
+            Write-Host "==== index.html content end ===="
+          } else {
+            Write-Host "index.html not found!"
+          }
+        shell: pwsh
