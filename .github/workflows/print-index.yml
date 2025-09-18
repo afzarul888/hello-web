@@ -1,0 +1,15 @@
+name: Print index.html
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  read-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Print index.html to log
+        run: cat index.html
